@@ -7,7 +7,7 @@ Drop[] drops = new Drop[100];
 
 void setup() {
   size(640, 360);
-  rain = new SoundFile(this, "Downloads/531947__straget__the-rain-falls-against-the-parasol.wav");
+  rain = new SoundFile(this, "../531947__straget__the-rain-falls-against-the-parasol.wav");
   s = new Sound(this);
   for (int i = 0; i<drops.length; i++) {
     drops[i] = new Drop();
