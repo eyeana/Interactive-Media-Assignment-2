@@ -1,7 +1,10 @@
+import controlP5.*;
+import beads.*;
 import processing.sound.*;
 
 SoundFile rain;
 Sound s;
+Sound_UI soundUI;
 
 Drop[] drops = new Drop[100];
 
@@ -17,7 +20,7 @@ void setup() {
   
   Data rainGaugeData = new Data("RainGauge.csv");
   String[][] rainData = rainGaugeData.getData();
- 
+  //soundUI.slider();
 }
 
 void draw(){
