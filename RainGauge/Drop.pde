@@ -1,15 +1,8 @@
 class Drop {
-  float x, y, speed;
+  float speed, speedInput;
   float ellipseX, ellipseY, endPos;
-  
-  Drop(){
-    init();
-  }
-  
-  void init() {
-    x = random(width);
-    y = random(-100,0);
-  }
+  float x = random(width);
+  float y = random(-100,0);
   
   void fall() {
     if (mouseX < 90) {
