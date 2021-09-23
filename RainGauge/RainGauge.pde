@@ -5,6 +5,7 @@ Sound s;
 
 Drop[] drops = new Drop[100];
 
+
 void setup() {
   size(640, 360);
   rain = new SoundFile(this, "../531947__straget__the-rain-falls-against-the-parasol.wav");
@@ -12,6 +13,10 @@ void setup() {
   for (int i = 0; i<drops.length; i++) {
     drops[i] = new Drop();
   }
+  
+  
+  Data rainGaugeData = new Data("RainGauge.csv");
+  String[][] rainData = rainGaugeData.getData();
  
 }
 
