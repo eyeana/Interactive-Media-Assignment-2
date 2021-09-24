@@ -6,8 +6,10 @@ Sound s;
 int dataRow = 0;
 float rainDropAmount;
 int rainAmount;
+int defaultRainAmount = 10;
 
 Drop[] drops = new Drop[100];
+City[] cities = new City[10];
 
 void setup() {
   size(640, 360);
@@ -17,14 +19,18 @@ void setup() {
   for (int i = 0; i<drops.length; i++) {
     drops[i] = new Drop();
   }
- 
+  for (int i=0; i < cities.length; i++) {
+    cities[i] = new City();
+  }
 }
 
 void draw(){
   background(230, 230,250);
+  ellipse(width/3,45,50,50);
   if(!rain.isPlaying()){
     rain.play();
   }
+  
   if (mouseX < 90) {
       s.volume(0.2);
     } else if ((mouseX > 90) && (mouseX < 180)){
@@ -34,34 +40,41 @@ void draw(){
     } else if ((mouseX > 270) && (mouseX < 360)){
       s.volume(0.5);
     }
-    
 
   dataRow = int(random(1,104677));
   rainDropAmount = table.getInt(int(dataRow),1);
+
   if (rainDropAmount == 0) {
-    rainAmount = 10;
+    rainAmount = 1;
   } else if (rainDropAmount == 0.2){
-    rainAmount = 20;
+    rainAmount = 2;
   } else if (rainDropAmount == 0.4){
-    rainAmount = 30;
+    rainAmount = 3;
   } else if (rainDropAmount == 0.6){
-    rainAmount = 40;
+    rainAmount = 4;
   } else if (rainDropAmount == 0.8){
-    rainAmount = 50;
+    rainAmount = 5;
   } else if (rainDropAmount == 1.0){
-    rainAmount = 60;
+    rainAmount = 6;
   } else if (rainDropAmount == 1.2){
-    rainAmount = 70;
+    rainAmount = 7;
   } else if (rainDropAmount == 1.4){
-    rainAmount = 80;
+    rainAmount = 8;
   } else if (rainDropAmount == 1.6){
-    rainAmount = 90;
+    rainAmount = 9;
   } else if (rainDropAmount == 1.8){
-    rainAmount = 100;
+    rainAmount = 10;
   }
-  for (int i = 0; i<rainAmount; i++) {
+  
+  defaultRainAmount = 10 * rainAmount;
+  
+  for (int i = 0; i<defaultRainAmount; i++) {
     drops[i].show();
     drops[i].fall();
+  }
+  
+  for (int i=0; i<cities.length; i++) {
+    cities[i].display();
   }
   
 }

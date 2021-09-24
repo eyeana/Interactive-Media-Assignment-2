@@ -5,13 +5,13 @@ class Drop {
   float y = random(-100,0);
   
   void fall() {
-    if (mouseX < 90) {
+    if (mouseX < width*0.25) {
       speed = 5;
-    } else if ((mouseX > 90) && (mouseX < 180)){
+    } else if ((mouseX > width*0.25) && (mouseX < width*0.5)){
       speed = 10;
-    } else if ((mouseX > 180) && (mouseX < 270)){
+    } else if ((mouseX > width*0.5) && (mouseX < width*0.75)){
       speed = 15;
-    } else if ((mouseX > 270) && (mouseX < 360)){
+    } else if ((mouseX > width*0.75) && (mouseX < width*1)){
       speed = 20;
     }
     y = y + speed;
