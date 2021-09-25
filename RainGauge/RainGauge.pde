@@ -4,6 +4,8 @@ SoundFile rain;
 Sound s;
 
 Drop[] drops = new Drop[100];
+String[][] rainData;
+int i = 0;
 
 void setup() {
   size(640, 360);
@@ -12,7 +14,10 @@ void setup() {
   for (int i = 0; i<drops.length; i++) {
     drops[i] = new Drop();
   }
- 
+  
+  Data rainGaugeData = new Data("RainGauge.csv");
+  rainData = rainGaugeData.getData();
+  
 }
 
 void draw(){
@@ -32,5 +37,11 @@ void draw(){
   for (int i = 0; i<drops.length; i++) {
     drops[i].show();
     drops[i].fall();
+  }
+  
+  
+  i++;
+  if (rainData[i][0]==null){
+    i = 0;
   }
 }
