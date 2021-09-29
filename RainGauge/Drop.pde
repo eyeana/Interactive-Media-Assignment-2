@@ -1,24 +1,17 @@
 class Drop {
-  float x, y, speed;
+  float speed, speedInput;
   float ellipseX, ellipseY, endPos;
+  float x = random(width);
+  float y = random(-100,0);
   
-  Drop(){
-    init();
-  }
-  
-  void init() {
-    x = random(width);
-    y = random(-100,0);
-  }
-  
-  void fall() {
-    if (mouseX < 90) {
+  void fall(float speedpitch) {
+    if (speedpitch < 0.75) {
       speed = 5;
-    } else if ((mouseX > 90) && (mouseX < 180)){
+    } else if ((speedpitch > 0.75) && (speedpitch < 1.5)){
       speed = 10;
-    } else if ((mouseX > 180) && (mouseX < 270)){
+    } else if ((speedpitch > 1.5) && (speedpitch < 2.25)){
       speed = 15;
-    } else if ((mouseX > 270) && (mouseX < 360)){
+    } else if ((speedpitch > 2.25) && (speedpitch < 3.0)){
       speed = 20;
     }
     y = y + speed;
