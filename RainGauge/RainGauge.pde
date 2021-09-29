@@ -5,7 +5,11 @@ Sound s;
 
 Drop[] drops = new Drop[100];
 String[][] rainData;
-int i = 0;
+String[][] windDirection;
+String[][] windSpeed;
+int rainCount = 0;
+int directionCount = 0;
+int speedCount = 0;
 
 void setup() {
   size(640, 360);
@@ -15,8 +19,12 @@ void setup() {
     drops[i] = new Drop();
   }
   
-  Data rainGaugeData = new Data("RainGauge.csv");
+  Data rainGaugeData = new Data("RainGauge.csv", "max");
   rainData = rainGaugeData.getData();
+  Data windDirectionData = new Data("WindDirection.csv", "avg");
+  windDirection = windDirectionData.getData();
+  Data windSpeedData = new Data("PeakWindGust.csv", "avg");
+  windSpeed = windSpeedData.getData();
   
 }
 
@@ -39,10 +47,19 @@ void draw(){
     drops[i].fall();
   }
   
-  System.out.println(rainData[i][0]);
-  System.out.println(rainData[i][1]);
-  i++;
-  if (rainData[i][0]==null){
-    i = 0;
+  //System.out.println("Rain data:      "+rainData[rainCount][0]+" "+rainData[rainCount][1]);
+  //System.out.println("Direction data: "+windDirection[directionCount][0]+" "+windDirection[directionCount][1]);
+  //System.out.println("Speed data:     "+windSpeed[speedCount][0]+" "+windSpeed[speedCount][1]);
+  rainCount++;
+  if (rainData[rainCount][0]==null){
+    rainCount = 0;
+  }
+  directionCount++;
+  if (windDirection[directionCount][0]==null){
+    directionCount = 0;
+  }
+  speedCount++;
+  if (windSpeed[speedCount][0]==null){
+    speedCount = 0;
   }
 }
