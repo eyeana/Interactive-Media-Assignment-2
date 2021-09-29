@@ -49,7 +49,7 @@ class City {
 
     for (float i = y; i < height; i+= spacing) {
       rect(x+5, i+10, size1/6, size1/6);
-      rect(x+spacing, i+10, size1/6, size1/6);
+      rect(x+spacing, i+5, size1/6, size1/6);
     }
   }
 
