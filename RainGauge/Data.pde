@@ -33,6 +33,9 @@ class Data{
           avgCount = 0.0f;
           c++;
         }
+      }else if (filter.equals("all")){
+        data[c][0] = date[0];
+        data[c][1] = cells[1];
       }
     }    
   }
