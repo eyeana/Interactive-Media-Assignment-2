@@ -1,7 +1,7 @@
 
 void light() {
 
-  String light_rain = "/Users/61452/Documents/Processing/Interactive-Media-Assignment-2/RainGauge/light_rain.wav";
+  String light_rain = "/Users/emmalum/Downloads/Rain_new_vis/light_rain.wav";
   SamplePlayer player_light = new SamplePlayer(ac, SampleManager.sample(light_rain));
   player_light.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
 
@@ -18,7 +18,7 @@ void light() {
 
 void heavy() {
 
-  String heavy_rain = "/Users/61452/Documents/Processing/Interactive-Media-Assignment-2/RainGauge/light_rain.wav";
+  String heavy_rain = "/Users/emmalum/Downloads/Rain_new_vis/rain.wav";
   SamplePlayer player_heavy = new SamplePlayer(ac, SampleManager.sample(heavy_rain));
   player_heavy.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
 
