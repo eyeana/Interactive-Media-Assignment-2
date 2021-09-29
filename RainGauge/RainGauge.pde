@@ -20,6 +20,7 @@ Glide gl2;
 Gain g;
 Gain g2;
 int i = 0;
+int timer = 0;
 
 City[] cities = new City[30];
 Drop[] drops = new Drop[2000];
@@ -32,6 +33,7 @@ int directionCount = 0;
 int speedCount = 0;
 
 void setup() {
+  frameRate(60);
   size(640, 360);
   ac = new AudioContext();
   light();
@@ -45,7 +47,7 @@ void setup() {
     cities[i] = new City();
   }
   
-  Data rainGaugeData = new Data("RainGauge.csv", "all");
+  Data rainGaugeData = new Data("RainGauge.csv", "max");
   rainData = rainGaugeData.getData();
   Data windDirectionData = new Data("WindDirection.csv", "avg");
   windDirection = windDirectionData.getData();
@@ -124,16 +126,33 @@ void draw() {
   System.out.println("Rain data:      "+rainData[rainCount][0]+" "+rainData[rainCount][1]);
   //System.out.println("Direction data: "+windDirection[directionCount][0]+" "+windDirection[directionCount][1]);
   //System.out.println("Speed data:     "+windSpeed[speedCount][0]+" "+windSpeed[speedCount][1]);
-  rainCount++;
+  //rainCount++;
   if (rainData[rainCount][0]==null){
     rainCount = 0;
   }
-  directionCount++;
   if (windDirection[directionCount][0]==null){
     directionCount = 0;
   }
-  speedCount++;
   if (windSpeed[speedCount][0]==null){
     speedCount = 0;
+  }
+    if(timer == 60)
+  {
+    rainCount++;
+    speedCount++;
+    directionCount++;
+    timer = 0;
+    //println(rainDropAmount);
+  }
+  else{
+    timer++;
+    if (rainData[rainCount][0]==null){
+      i = 0;
+    }
+    else if(float(rainData[i][1])<=1.0){// if data value <= 1.0 set g2 gain to 0, else set g2 gain to volume variable
+      g2.setGain(0);
+    }
+    else
+      g2.setGain(volume);
   }
 }
