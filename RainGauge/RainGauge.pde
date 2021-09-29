@@ -19,7 +19,7 @@ void setup() {
     drops[i] = new Drop();
   }
   
-  Data rainGaugeData = new Data("RainGauge.csv", "max");
+  Data rainGaugeData = new Data("RainGauge.csv", "all");
   rainData = rainGaugeData.getData();
   Data windDirectionData = new Data("WindDirection.csv", "avg");
   windDirection = windDirectionData.getData();
