@@ -119,7 +119,8 @@ void draw() {
       drops[i].show();
       drops[i].fall(speedpitch);
     }
-    
+  textSize(20);
+  text("Date: "+rainData[rainCount][0], 450, 20);  
   System.out.println("Rain data:      "+rainData[rainCount][0]+" "+rainData[rainCount][1]);
   //System.out.println("Direction data: "+windDirection[directionCount][0]+" "+windDirection[directionCount][1]);
   //System.out.println("Speed data:     "+windSpeed[speedCount][0]+" "+windSpeed[speedCount][1]);
