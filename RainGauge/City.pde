@@ -51,7 +51,6 @@ class City {
       rect(x+5, i+10, size1/6, size1/6);
       rect(x+spacing, i+10, size1/6, size1/6);
     }
-  
   }
 
 
@@ -65,21 +64,10 @@ class City {
     fill(55, 42, 89);
     rect(x2, y2, size3, size4);
 
-
-
-
     fill(173, 92, 5);
     rect(x2+2, y2+1, size3/200, size4-2);//side light
     rect(x2+3, y2+1, size3-5, size4/400);//top light
-
-    //for (float i = y2; i < height; i+= spacing) {
-    //  strokeWeight(2);
-    //  stroke(69, 76, 150);
-    //  fill(245, 156, 88);
-    //  rect(x2+spacing2, i+15, size3/8, size4/25);
-    //  rect(x2+spacing2*2, i+10, size3/8, size4/30);
-    //  rect(x2+spacing2*3, i+10, size3/8, size4/30);
-    //}
+    
     noStroke();
   }
 }

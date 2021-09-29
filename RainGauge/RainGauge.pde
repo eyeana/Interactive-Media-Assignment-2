@@ -74,13 +74,6 @@ void draw() {
   setGradient(0, 0, width, height, b1, b2, X_AXIS);
   noStroke();
   
- // for (int i=71; i<163; i+=20 ) {
-   // for (int j=160; j<200; i+=10) {
-    //  fill(255, i, 151, 100); 
-     // ellipse(110, 45, j, j);
-    //}
-  //}
-    
     fill(250, 236, 200,220);
     ellipse(110, 45, 140, 140);//SUN 
 
