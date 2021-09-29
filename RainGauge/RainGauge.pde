@@ -28,9 +28,11 @@ Drop[] drops = new Drop[2000];
 String[][] rainData;
 String[][] windDirection;
 String[][] windSpeed;
+String[][] lighting;
 int rainCount = 0;
 int directionCount = 0;
 int speedCount = 0;
+int lightingCount = 0;
 
 void setup() {
   frameRate(60);
@@ -53,6 +55,8 @@ void setup() {
   windDirection = windDirectionData.getData();
   Data windSpeedData = new Data("PeakWindGust.csv", "avg");
   windSpeed = windSpeedData.getData();
+  Data lightingData = new Data("CB02.01-DB-01-EM-01 Lighting - LIGHTING.csv", "avg");
+  lighting = lightingData.getData();
   
 }
 
@@ -126,7 +130,7 @@ void draw() {
   System.out.println("Rain data:      "+rainData[rainCount][0]+" "+rainData[rainCount][1]);
   //System.out.println("Direction data: "+windDirection[directionCount][0]+" "+windDirection[directionCount][1]);
   //System.out.println("Speed data:     "+windSpeed[speedCount][0]+" "+windSpeed[speedCount][1]);
-  //rainCount++;
+  //System.out.println("Lighting data:  "+lighting[lightingCount][0]+" "+lighting[lightingCount][1]);
   if (rainData[rainCount][0]==null){
     rainCount = 0;
   }
@@ -136,11 +140,15 @@ void draw() {
   if (windSpeed[speedCount][0]==null){
     speedCount = 0;
   }
+  if (lighting[lightingCount][0]==null){
+    lightingCount = 0;
+  }
     if(timer == 60)
   {
     rainCount++;
     speedCount++;
     directionCount++;
+    lightingCount++;
     timer = 0;
     //println(rainDropAmount);
   }
