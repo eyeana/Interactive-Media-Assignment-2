@@ -39,7 +39,8 @@ void draw(){
     drops[i].fall();
   }
   
-  
+  System.out.println(rainData[i][0]);
+  System.out.println(rainData[i][1]);
   i++;
   if (rainData[i][0]==null){
     i = 0;
