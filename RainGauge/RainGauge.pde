@@ -45,7 +45,7 @@ void setup() {
     cities[i] = new City();
   }
   
-  Data rainGaugeData = new Data("RainGauge.csv", "max");
+  Data rainGaugeData = new Data("RainGauge.csv", "all");
   rainData = rainGaugeData.getData();
   Data windDirectionData = new Data("WindDirection.csv", "avg");
   windDirection = windDirectionData.getData();
@@ -87,7 +87,6 @@ void draw() {
     g.setGain(volume);
     gl1.setValue(speedpitch);
     gl2.setValue(speedpitch);
-    dataRow = int(random(1, 104677));
     
     rainDropAmount = Float.parseFloat(rainData[rainCount][1]);
 
