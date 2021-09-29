@@ -1,9 +1,29 @@
 import processing.sound.*;
+import beads.*;
+import java.util.Arrays; 
+import controlP5.*;
 
+Table table;
 SoundFile rain;
 Sound s;
+AudioContext ac;
+ControlP5 jControl;
 
-Drop[] drops = new Drop[100];
+int dataRow = 0;
+float rainDropAmount;
+int rainAmount;
+int defaultRainAmount = 10;
+float volume;
+float speedpitch;
+Glide gl1;
+Glide gl2;
+Gain g;
+Gain g2;
+int i = 0;
+
+City[] cities = new City[30];
+Drop[] drops = new Drop[2000];
+
 String[][] rainData;
 String[][] windDirection;
 String[][] windSpeed;
@@ -13,13 +33,19 @@ int speedCount = 0;
 
 void setup() {
   size(640, 360);
-  rain = new SoundFile(this, "../531947__straget__the-rain-falls-against-the-parasol.wav");
-  s = new Sound(this);
+  ac = new AudioContext();
+  light();
+  heavy();
+  slider();
+
   for (int i = 0; i<drops.length; i++) {
     drops[i] = new Drop();
   }
+  for (int i=0; i < cities.length; i++) {
+    cities[i] = new City();
+  }
   
-  Data rainGaugeData = new Data("RainGauge.csv", "all");
+  Data rainGaugeData = new Data("RainGauge.csv", "max");
   rainData = rainGaugeData.getData();
   Data windDirectionData = new Data("WindDirection.csv", "avg");
   windDirection = windDirectionData.getData();
@@ -28,26 +54,81 @@ void setup() {
   
 }
 
-void draw(){
-  background(230, 230,250);
-  if(!rain.isPlaying()){
-    rain.play();
-  }
-  if (mouseX < 90) {
-      s.volume(0.2);
-    } else if ((mouseX > 90) && (mouseX < 180)){
-      s.volume(0.3);
-    } else if ((mouseX > 180) && (mouseX < 270)){
-      s.volume(0.4);
-    } else if ((mouseX > 270) && (mouseX < 360)){
-      s.volume(0.5);
-    }
-  for (int i = 0; i<drops.length; i++) {
-    drops[i].show();
-    drops[i].fall();
-  }
+void vol (float value1) {
+  volume = value1;
+}
+
+void speed (float value2) {
+  speedpitch = value2;
+}
+void slider() {
+  volume = 2;
+  speedpitch = 1;
+  jControl = new ControlP5(this);
+
+  jControl.addSlider("vol", 0, 2, 100, 10, 10, 200, 30); 
+  jControl.addSlider("speed", 0, 3, 100, 10, 50, 200, 30);
+}
+
+void draw() {
+  setGradient(0, 0, width, height, b1, b2, X_AXIS);
+  noStroke();
   
-  //System.out.println("Rain data:      "+rainData[rainCount][0]+" "+rainData[rainCount][1]);
+ // for (int i=71; i<163; i+=20 ) {
+   // for (int j=160; j<200; i+=10) {
+    //  fill(255, i, 151, 100); 
+     // ellipse(110, 45, j, j);
+    //}
+  //}
+    
+    fill(250, 236, 200,220);
+    ellipse(110, 45, 140, 140);//SUN 
+
+    g.setGain(volume);
+    gl1.setValue(speedpitch);
+    gl2.setValue(speedpitch);
+    dataRow = int(random(1, 104677));
+    
+    rainDropAmount = Float.parseFloat(rainData[rainCount][1]);
+
+    if (rainDropAmount == 0) {
+      rainAmount = 1;
+    } else if (rainDropAmount == 0.2) {
+      rainAmount = 2;
+    } else if (rainDropAmount == 0.4) {
+      rainAmount = 3;
+    } else if (rainDropAmount == 0.6) {
+      rainAmount = 4;
+    } else if (rainDropAmount == 0.8) {
+      rainAmount = 5;
+    } else if (rainDropAmount == 1.0) {
+      rainAmount = 6;
+    } else if (rainDropAmount == 1.2) {
+      rainAmount = 7;
+    } else if (rainDropAmount == 1.4) {
+      rainAmount = 8;
+    } else if (rainDropAmount == 1.6) {
+      rainAmount = 9;
+    } else if (rainDropAmount == 1.8) {
+      rainAmount = 10;
+    }
+
+    defaultRainAmount = 4*rainAmount*rainAmount;//30 * rainAmount;
+    
+     for (int i=0; i<cities.length; i++) {
+      cities[i].building();
+    }
+
+    for (int i=10; i<cities.length; i++) {
+      cities[i].display2();
+    }
+
+    for (int i = 0; i<defaultRainAmount; i++) {
+      drops[i].show();
+      drops[i].fall(speedpitch);
+    }
+    
+  System.out.println("Rain data:      "+rainData[rainCount][0]+" "+rainData[rainCount][1]);
   //System.out.println("Direction data: "+windDirection[directionCount][0]+" "+windDirection[directionCount][1]);
   //System.out.println("Speed data:     "+windSpeed[speedCount][0]+" "+windSpeed[speedCount][1]);
   rainCount++;
