@@ -5,6 +5,12 @@ import controlP5.*;
 
 Table table;
 SoundFile rain;
+
+String sourceFile;
+SamplePlayer player_light;
+String sourceFile2; 
+SamplePlayer player_heavy;
+
 Sound s;
 AudioContext ac;
 ControlP5 jControl;
