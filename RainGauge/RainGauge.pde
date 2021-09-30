@@ -25,7 +25,7 @@ Glide gl1;
 Glide gl2;
 Gain g;
 Gain g2;
-int i = 0;
+//int i = 0;
 int timer = 0;
 
 City[] cities = new City[30];
@@ -35,7 +35,7 @@ String[][] rainData;
 String[][] windDirection;
 String[][] windSpeed;
 String[][] lighting;
-int rainCount = 0;
+int rainCount = 31;
 int directionCount = 0;
 int speedCount = 0;
 int lightingCount = 0;
@@ -126,14 +126,13 @@ void draw() {
     for (int i=10; i<cities.length; i++) {
       cities[i].display2();
     }
-
     for (int i = 0; i<defaultRainAmount; i++) {
       drops[i].show();
       drops[i].fall(speedpitch);
     }
   textSize(20);
   text("Date: "+rainData[rainCount][0], 450, 20);  
-  System.out.println("Rain data:      "+rainData[rainCount][0]+" "+rainData[rainCount][1]);
+  //System.out.println("Rain data:      "+rainData[rainCount][0]+" "+rainData[rainCount][1]);
   //System.out.println("Direction data: "+windDirection[directionCount][0]+" "+windDirection[directionCount][1]);
   //System.out.println("Speed data:     "+windSpeed[speedCount][0]+" "+windSpeed[speedCount][1]);
   //System.out.println("Lighting data:  "+lighting[lightingCount][0]+" "+lighting[lightingCount][1]);
@@ -149,7 +148,7 @@ void draw() {
   if (lighting[lightingCount][0]==null){
     lightingCount = 0;
   }
-    if(timer == 60)
+  if(timer == 60)
   {
     rainCount++;
     speedCount++;
@@ -157,13 +156,13 @@ void draw() {
     lightingCount++;
     timer = 0;
     //println(rainDropAmount);
+    for (int i = 0; i<defaultRainAmount; i++) {
+      drops[i].reset();
+    }
   }
   else{
     timer++;
-    if (rainData[rainCount][0]==null){
-      i = 0;
-    }
-    else if(float(rainData[i][1])<=1.0){// if data value <= 1.0 set g2 gain to 0, else set g2 gain to volume variable
+    if(float(rainData[rainCount][1])<=1.0){// if data value <= 1.0 set g2 gain to 0, else set g2 gain to volume variable
       g2.setGain(0);
     }
     else
