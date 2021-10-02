@@ -34,6 +34,6 @@ class Drop {
     }
   }
   void reset(){
-    y  = random(-100, 0);
+    y  = random(-200, 0);
   }
 }
