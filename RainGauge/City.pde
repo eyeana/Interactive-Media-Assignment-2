@@ -6,6 +6,7 @@ class City {
   float v1, v2, v3, v4;
   float spacing, spacing2;
   float lightingData;
+  float opacity;
 
   City() {  
     x = random(-50, width);
@@ -20,10 +21,11 @@ class City {
     y2 = random (250, 400);
     size3 = random(75, 125);
     size4 = height;
+    opacity = 255;
   }
 
 
-  void building(String lighting) {
+  void building(String lighting, int timer) {
     
     lightingData = float(lighting);
 
@@ -41,35 +43,28 @@ class City {
 
     stroke(69, 76, 150);
     strokeWeight(2);
-    //fill(245, 156, 88, 255);
+    
+    float endOpacity = 0.0;
     
     if((lightingData>=0) && (lightingData<0.5)){
-      fill(245, 156, 88, 63);
+      endOpacity = 63.0;
     } else if ((lightingData>=0.51) && (lightingData<1.0)) {
-      fill(245, 156, 88, 127);
+      endOpacity = 127.0;
     } else if ((lightingData>=1.01) && (lightingData<1.5)) {
-      fill(245, 156, 88, 191);
+      endOpacity = 191.0;
     } else if ((lightingData>=1.51) && (lightingData<2.0)) {
-      fill(245, 156, 88, 210);
+      endOpacity = 210.0;
     } else if ((lightingData>=2.01)) {
-      fill(245, 156, 88, 255);
+      endOpacity = 255.0;
     }
-
-    //for (float i = y; i < height; i+= spacing) {
-
-    //  for (float j = x; j < size1; j += spacing) {
-    //    rect(j+5, i+10, size1/6, size1/6);
-    //  }
-    //}
+    opacity = lerp(opacity, endOpacity, timer/60.0);
+    fill(245, 156, 88, opacity);
 
     for (float i = y; i < height; i+= spacing) {
       rect(x+5, i+10, size1/6, size1/6);
       rect(x+spacing, i+5, size1/6, size1/6);
     }
   }
-
-
-
 
   void display2() {
     noStroke();

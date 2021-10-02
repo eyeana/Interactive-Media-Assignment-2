@@ -25,20 +25,21 @@ Glide gl1;
 Glide gl2;
 Gain g;
 Gain g2;
-//int i = 0;
 int timer = 0;
 
-City[] cities = new City[30];
+int cityNumber = 30;
+City[] cities = new City[cityNumber];
 Drop[] drops = new Drop[2000];
 
 String[][] rainData;
 String[][] windDirection;
 String[][] windSpeed;
 String[][] lighting;
-int rainCount = 0;
-int directionCount = 0;
-int speedCount = 0;
-int lightingCount = 0;
+int startingDay = 6;
+int rainCount = startingDay;
+int directionCount =startingDay;
+int speedCount = startingDay;
+int lightingCount = startingDay;
 
 void setup() {
   frameRate(60);
@@ -63,6 +64,7 @@ void setup() {
   windSpeed = windSpeedData.getData();
   Data lightingData = new Data("CB02.01-DB-01-EM-01 Lighting - LIGHTING.csv", "avg");
   lighting = lightingData.getData();
+  
 }
 
 void vol (float value1) {
@@ -119,9 +121,8 @@ void draw() {
     defaultRainAmount = 4*rainAmount*rainAmount;//30 * rainAmount;
     
      for (int i=0; i<cities.length; i++) {
-      cities[i].building(lighting[lightingCount][1]);
+      cities[i].building(lighting[lightingCount][1], timer);
      }
-
     for (int i=10; i<cities.length; i++) {
       cities[i].display2();
     }
@@ -129,6 +130,7 @@ void draw() {
       drops[i].show();
       drops[i].fall(speedpitch);
     }
+    
   textSize(20);
   text("Date: "+rainData[rainCount][0], 450, 20);  
   //System.out.println("Rain data:      "+rainData[rainCount][0]+" "+rainData[rainCount][1]);
@@ -154,7 +156,6 @@ void draw() {
     directionCount++;
     lightingCount++;
     timer = 0;
-    //println(rainDropAmount);
     for (int i = 0; i<defaultRainAmount; i++) {
       drops[i].reset();
     }
