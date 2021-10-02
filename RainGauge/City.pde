@@ -6,7 +6,11 @@ class City {
   float v1, v2, v3, v4;
   float spacing, spacing2;
   float lightingData;
+<<<<<<< HEAD
   float opacity;
+=======
+  color light; 
+>>>>>>> 130b4c4bbcb67d19187f55e0dc023cc95b0d444b
 
   City() {  
     x = random(-50, width);
@@ -22,6 +26,7 @@ class City {
     size3 = random(75, 125);
     size4 = height;
     opacity = 255;
+    light = color(245, 156, 88); 
   }
 
 
@@ -58,7 +63,7 @@ class City {
       endOpacity = 255.0;
     }
     opacity = lerp(opacity, endOpacity, timer/60.0);
-    fill(245, 156, 88, opacity);
+    fill(light, opacity);
 
     for (float i = y; i < height; i+= spacing) {
       rect(x+5, i+10, size1/6, size1/6);

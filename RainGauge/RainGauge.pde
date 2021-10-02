@@ -1,17 +1,17 @@
-import processing.sound.*;
+
 import beads.*;
 import java.util.Arrays; 
 import controlP5.*;
 
 Table table;
-SoundFile rain;
 
 String sourceFile;
 SamplePlayer player_light;
 String sourceFile2; 
 SamplePlayer player_heavy;
+String sourceFile3;
+SamplePlayer player_rainDropSound;
 
-Sound s;
 AudioContext ac;
 ControlP5 jControl;
 
@@ -19,12 +19,18 @@ int dataRow = 0;
 float rainDropAmount;
 int rainAmount;
 int defaultRainAmount = 10;
+
 float volume;
 float speedpitch;
+<<<<<<< HEAD
 Glide gl1;
 Glide gl2;
 Gain g;
 Gain g2;
+=======
+
+//int i = 0;
+>>>>>>> 130b4c4bbcb67d19187f55e0dc023cc95b0d444b
 int timer = 0;
 
 int cityNumber = 30;
@@ -45,6 +51,7 @@ void setup() {
   frameRate(60);
   size(640, 360);
   ac = new AudioContext();
+  rainDropSound();
   light();
   heavy();
   slider();
@@ -55,7 +62,7 @@ void setup() {
   for (int i=0; i < cities.length; i++) {
     cities[i] = new City();
   }
-  
+
   Data rainGaugeData = new Data("RainGauge.csv", "max");
   rainData = rainGaugeData.getData();
   Data windDirectionData = new Data("WindDirection.csv", "avg");
@@ -68,17 +75,19 @@ void setup() {
 }
 
 void vol (float value1) {
+
   volume = value1;
 }
 
 void speed (float value2) {
   speedpitch = value2;
 }
+
 void slider() {
-  volume = 2;
+  volume = 2; 
+  //volume_heavy = 2;
   speedpitch = 1;
   jControl = new ControlP5(this);
-
   jControl.addSlider("vol", 0, 2, 100, 10, 10, 200, 30); 
   jControl.addSlider("speed", 0, 3, 100, 10, 50, 200, 30);
 }
@@ -86,38 +95,41 @@ void slider() {
 void draw() {
   setGradient(0, 0, width, height, b1, b2, X_AXIS);
   noStroke();
+
+  fill(250, 236, 200, 220);
+  ellipse(110, 45, 140, 140);//SUN 
   
-    fill(250, 236, 200,220);
-    ellipse(110, 45, 140, 140);//SUN 
+ // g_light.setGain(volume);
+ 
+  
+  gainValLight.setValue(speedpitch);//gl_light.setValue(speedpitch);
+  gainValHeavy.setValue(speedpitch);//gl_heavy.setValue(speedpitch);
 
-    g.setGain(volume);
-    gl1.setValue(speedpitch);
-    gl2.setValue(speedpitch);
-    
-    rainDropAmount = Float.parseFloat(rainData[rainCount][1]);
+  rainDropAmount = Float.parseFloat(rainData[rainCount][1]);
 
-    if (rainDropAmount == 0) {
-      rainAmount = 1;
-    } else if (rainDropAmount == 0.2) {
-      rainAmount = 2;
-    } else if (rainDropAmount == 0.4) {
-      rainAmount = 3;
-    } else if (rainDropAmount == 0.6) {
-      rainAmount = 4;
-    } else if (rainDropAmount == 0.8) {
-      rainAmount = 5;
-    } else if (rainDropAmount == 1.0) {
-      rainAmount = 6;
-    } else if (rainDropAmount == 1.2) {
-      rainAmount = 7;
-    } else if (rainDropAmount == 1.4) {
-      rainAmount = 8;
-    } else if (rainDropAmount == 1.6) {
-      rainAmount = 9;
-    } else if (rainDropAmount == 1.8) {
-      rainAmount = 10;
-    }
+  if (rainDropAmount == 0) {
+    rainAmount = 1;
+  } else if (rainDropAmount == 0.2) {
+    rainAmount = 2;
+  } else if (rainDropAmount == 0.4) {
+    rainAmount = 3;
+  } else if (rainDropAmount == 0.6) {
+    rainAmount = 4;
+  } else if (rainDropAmount == 0.8) {
+    rainAmount = 5;
+  } else if (rainDropAmount == 1.0) {
+    rainAmount = 6;
+  } else if (rainDropAmount == 1.2) {
+    rainAmount = 7;
+  } else if (rainDropAmount == 1.4) {
+    rainAmount = 8;
+  } else if (rainDropAmount == 1.6) {
+    rainAmount = 9;
+  } else if (rainDropAmount == 1.8) {
+    rainAmount = 10;
+  }
 
+<<<<<<< HEAD
     defaultRainAmount = 4*rainAmount*rainAmount;//30 * rainAmount;
     
      for (int i=0; i<cities.length; i++) {
@@ -131,41 +143,81 @@ void draw() {
       drops[i].fall(speedpitch);
     }
     
+=======
+  defaultRainAmount = 4*rainAmount*rainAmount;//30 * rainAmount;
+
+  for (int i=0; i<cities.length; i++) {
+    cities[i].building(lighting[lightingCount][1]);
+  }
+
+  for (int i=10; i<cities.length; i++) {
+    cities[i].display2();
+  }
+
+
+
+  for (int i = 0; i<defaultRainAmount; i++) {
+    drops[i].show();
+    drops[i].fall(speedpitch);
+
+
+    if (drops[i].y <= height-50) {
+
+      player_rainDropSound.setToLoopStart();
+      //player_rainDropSound.setLoopCrossFade(100);
+      //player_rainDropSound.reTrigger(); 
+      gainValDrop.setValue(speedpitch); 
+      g_drop.setGain(volume);
+      player_rainDropSound.start();
+      //ac.start();
+    }
+    ac.reset();
+  }
+
+>>>>>>> 130b4c4bbcb67d19187f55e0dc023cc95b0d444b
   textSize(20);
   text("Date: "+rainData[rainCount][0], 450, 20);  
   //System.out.println("Rain data:      "+rainData[rainCount][0]+" "+rainData[rainCount][1]);
   //System.out.println("Direction data: "+windDirection[directionCount][0]+" "+windDirection[directionCount][1]);
   //System.out.println("Speed data:     "+windSpeed[speedCount][0]+" "+windSpeed[speedCount][1]);
   //System.out.println("Lighting data:  "+lighting[lightingCount][0]+" "+lighting[lightingCount][1]);
-  if (rainData[rainCount][0]==null){
+  if (rainData[rainCount][0]==null) {
     rainCount = 0;
   }
-  if (windDirection[directionCount][0]==null){
+  if (windDirection[directionCount][0]==null) {
     directionCount = 0;
   }
-  if (windSpeed[speedCount][0]==null){
+  if (windSpeed[speedCount][0]==null) {
     speedCount = 0;
   }
-  if (lighting[lightingCount][0]==null){
+  if (lighting[lightingCount][0]==null) {
     lightingCount = 0;
   }
-  if(timer == 60)
+  if (timer == 60)
   {
     rainCount++;
     speedCount++;
     directionCount++;
     lightingCount++;
     timer = 0;
+<<<<<<< HEAD
+=======
+    println(rainDropAmount);
+>>>>>>> 130b4c4bbcb67d19187f55e0dc023cc95b0d444b
     for (int i = 0; i<defaultRainAmount; i++) {
       drops[i].reset();
     }
-  }
-  else{
+  } else {
     timer++;
-    if(float(rainData[rainCount][1])<=1.0){// if data value <= 1.0 set g2 gain to 0, else set g2 gain to volume variable
-      g2.setGain(0);
-    }
-    else
-      g2.setGain(volume);
+    if (float(rainData[rainCount][1])<=0.1) {
+      g_light.setGain(0);
+    } else
+      g_light.setGain(volume);
+
+    if (float(rainData[rainCount][1])<=0.5) {// if data value <= 1.0 set g2 gain to 0, else set g2 gain to volume variable
+      g_heavy.setGain(0);
+    } else
+      g_heavy.setGain(volume);
+    ac.start();
   }
 }
