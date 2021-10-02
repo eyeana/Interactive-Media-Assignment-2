@@ -35,7 +35,6 @@ String[][] rainData;
 String[][] windDirection;
 String[][] windSpeed;
 String[][] lighting;
-<<<<<<< HEAD
 int rainCount = 0;
 int directionCount = 0;
 int speedCount = 0;
@@ -62,14 +61,8 @@ void setup() {
   windDirection = windDirectionData.getData();
   Data windSpeedData = new Data("PeakWindGust.csv", "avg");
   windSpeed = windSpeedData.getData();
-<<<<<<< HEAD
-  Data lightingData = new Data("CB02.DBSL-01-EM-01 Lighting - LIGHTING.csv", "avg");
-  lighting = lightingData.getData();
-=======
   Data lightingData = new Data("CB02.01-DB-01-EM-01 Lighting - LIGHTING.csv", "avg");
   lighting = lightingData.getData();
-  
->>>>>>> d125fb36566ceb775ce2f4e1e248f77dbb281e60
 }
 
 void vol (float value1) {
