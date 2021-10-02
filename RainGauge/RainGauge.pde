@@ -119,7 +119,6 @@ void draw() {
     rainAmount = 10;
   }
 
-
   defaultRainAmount = rainMultiplier*rainAmount*rainAmount;//30 * rainAmount;
 
   for (int i=0; i<cities.length; i++) {
@@ -134,11 +133,8 @@ void draw() {
   }
 
   textSize(20);
-  text("Date: "+rainData[rainCount][0], 450, 20);  
-  //System.out.println("Rain data:      "+rainData[rainCount][0]+" "+rainData[rainCount][1]);
-  //System.out.println("Direction data: "+windDirection[directionCount][0]+" "+windDirection[directionCount][1]);
-  //System.out.println("Speed data:     "+windSpeed[speedCount][0]+" "+windSpeed[speedCount][1]);
-  //System.out.println("Lighting data:  "+lighting[lightingCount][0]+" "+lighting[lightingCount][1]);
+  text("Date: "+rainData[rainCount][0], 450, 20);//Display current date from the data  
+
   if (rainData[rainCount][0]==null) {
     rainCount = 0;
   }
@@ -159,7 +155,6 @@ void draw() {
     lightingCount++;
     timer = 0;
     println(rainDropAmount);
-
     for (int i = 0; i<defaultRainAmount; i++) {
       drops[i].reset();
     }

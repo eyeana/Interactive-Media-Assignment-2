@@ -24,12 +24,12 @@ class City {
     size3 = random(75, 125);
     size4 = height;
     opacity = 255;
-    light = color(255, 227, 84); 
+    light = color(255, 227, 84);
   }
 
 
   void building(String lighting, int timer) {
-    
+
     lightingData = float(lighting);
 
     noStroke();
@@ -46,16 +46,16 @@ class City {
 
     stroke(69, 76, 150);
     strokeWeight(2);
-    
+
     fill(35, 34, 89);
     for (float i = y; i < height; i+= spacing) {
       rect(x+5, i+10, size1/6, size1/6);
       rect(x+spacing, i+5, size1/6, size1/6);
     }
-    
+
     float endOpacity = 0.0;
-    
-    if((lightingData>=0) && (lightingData<0.5)){
+
+    if ((lightingData>=0) && (lightingData<0.5)) {
       endOpacity = 63.0;
     } else if ((lightingData>=0.51) && (lightingData<1.0)) {
       endOpacity = 127.0;
@@ -86,7 +86,7 @@ class City {
     fill(173, 92, 5);
     rect(x2+2, y2+1, size3/200, size4-2);//side light
     rect(x2+3, y2+1, size3-5, size4/400);//top light
-    
+
     noStroke();
   }
 }

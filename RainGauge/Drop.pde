@@ -25,7 +25,7 @@ class Drop {
     } else if ((speedpitch > 2.25) && (speedpitch < 3.0)) {
       speed = 20;
     }
- 
+
     y = y + speed;
   }
 

@@ -41,15 +41,11 @@ void light() {
   r_light.setDamping(0.7);
   r_light.setEarlyReflectionsLevel(0.7);
   r_light.addInput(g_light);
-  ac.out.addInput(r_light);
 
+  ac.out.addInput(r_light);
   ac.out.addInput(g_light); //connect gain to ac 
 
-  // p.addInput(player_light);
-  // g1.addInput(p);
-
-  player_light.start(); 
-  //ac.start();
+  player_light.start();
 }
 
 void heavy() {
@@ -64,19 +60,14 @@ void heavy() {
     exit();
   }
   player_heavy.setKillOnEnd(false);
-
   player_heavy.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
 
-  //Panner p = new Panner(ac, 0); 
   gl_heavy = new Glide(ac, 1, 10);
   player_heavy.setRate(gl_heavy);
 
   gainValHeavy = new Glide(ac, 0, 10);
   g_heavy = new Gain(ac, 1, gainValHeavy);
   g_heavy.addInput(player_heavy);
-
-  //p.addInput(player_heavy);
-  //g2.addInput(p);
 
   r_heavy = new Reverb(ac, 1);
   r_heavy.setSize(0.5);
@@ -89,9 +80,8 @@ void heavy() {
   g_heavy.addInput(filter_heavy); 
 
   ac.out.addInput(r_heavy);
-
-
   ac.out.addInput(g_heavy);
+
   player_heavy.start(); 
   ac.start();
 }
