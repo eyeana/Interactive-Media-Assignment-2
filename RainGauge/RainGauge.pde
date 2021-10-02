@@ -33,7 +33,7 @@ String[][] rainData;
 String[][] windDirection;
 String[][] windSpeed;
 String[][] lighting;
-int rainCount = 31;
+int rainCount = 0;
 int directionCount = 0;
 int speedCount = 0;
 int lightingCount = 0;
