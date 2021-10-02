@@ -134,12 +134,7 @@ void draw() {
   //System.out.println("Rain data:      "+rainData[rainCount][0]+" "+rainData[rainCount][1]);
   //System.out.println("Direction data: "+windDirection[directionCount][0]+" "+windDirection[directionCount][1]);
   //System.out.println("Speed data:     "+windSpeed[speedCount][0]+" "+windSpeed[speedCount][1]);
-<<<<<<< HEAD
-  System.out.println("Lighting data:  "+lighting[lightingCount][0]+" "+lighting[lightingCount][1]);
-  rainCount++;
-=======
   //System.out.println("Lighting data:  "+lighting[lightingCount][0]+" "+lighting[lightingCount][1]);
->>>>>>> d125fb36566ceb775ce2f4e1e248f77dbb281e60
   if (rainData[rainCount][0]==null){
     rainCount = 0;
   }
@@ -149,12 +144,6 @@ void draw() {
   if (windSpeed[speedCount][0]==null){
     speedCount = 0;
   }
-<<<<<<< HEAD
-  lightingCount++;
-  if (lighting[speedCount][0]==null){
-    lightingCount = 0;
-  }
-=======
   if (lighting[lightingCount][0]==null){
     lightingCount = 0;
   }
@@ -178,5 +167,4 @@ void draw() {
     else
       g2.setGain(volume);
   }
->>>>>>> d125fb36566ceb775ce2f4e1e248f77dbb281e60
 }
