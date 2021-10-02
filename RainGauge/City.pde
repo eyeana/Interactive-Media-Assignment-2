@@ -6,6 +6,7 @@ class City {
   float v1, v2, v3, v4;
   float spacing, spacing2;
   float lightingData;
+  color light; 
 
   City() {  
     x = random(-50, width);
@@ -20,6 +21,8 @@ class City {
     y2 = random (250, 400);
     size3 = random(75, 125);
     size4 = height;
+   
+    light = color(245, 156, 88); 
   }
 
 
@@ -44,15 +47,15 @@ class City {
     //fill(245, 156, 88, 255);
     
     if((lightingData>=0) && (lightingData<0.5)){
-      fill(245, 156, 88, 63);
+      fill(light, 63);
     } else if ((lightingData>=0.51) && (lightingData<1.0)) {
-      fill(245, 156, 88, 127);
+      fill(light, 127);
     } else if ((lightingData>=1.01) && (lightingData<1.5)) {
-      fill(245, 156, 88, 191);
+      fill(light, 191);
     } else if ((lightingData>=1.51) && (lightingData<2.0)) {
-      fill(245, 156, 88, 210);
+      fill(light, 210);
     } else if ((lightingData>=2.01)) {
-      fill(245, 156, 88, 255);
+      fill(light, 255);
     }
 
     //for (float i = y; i < height; i+= spacing) {
