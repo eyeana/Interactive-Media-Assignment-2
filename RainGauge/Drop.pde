@@ -10,7 +10,7 @@ class Drop {
   Drop() { 
     x = random(width);
     r = 3.5;
-    y  = r*4;//random(-100, 0);
+    y  = random(-200, 0);
   }
 
   void fall(float speedpitch) {
@@ -24,9 +24,6 @@ class Drop {
       speed = 20;
     }
     y = y + speed;
-    if (y > height) {
-      y = random(-100, 0);
-    }
   }
 
   void show() {
@@ -35,5 +32,8 @@ class Drop {
     for (int i = 2; i < r; i++ ) {
       ellipse(x, y + i*4, i*2, i*3);
     }
+  }
+  void reset(){
+    y  = random(-200, 0);
   }
 }

@@ -5,6 +5,12 @@ import controlP5.*;
 
 Table table;
 SoundFile rain;
+
+String sourceFile;
+SamplePlayer player_light;
+String sourceFile2; 
+SamplePlayer player_heavy;
+
 Sound s;
 AudioContext ac;
 ControlP5 jControl;
@@ -19,7 +25,8 @@ Glide gl1;
 Glide gl2;
 Gain g;
 Gain g2;
-int i = 0;
+//int i = 0;
+int timer = 0;
 
 City[] cities = new City[30];
 Drop[] drops = new Drop[2000];
@@ -28,12 +35,14 @@ String[][] rainData;
 String[][] windDirection;
 String[][] windSpeed;
 String[][] lighting;
+<<<<<<< HEAD
 int rainCount = 0;
 int directionCount = 0;
 int speedCount = 0;
 int lightingCount = 0;
 
 void setup() {
+  frameRate(60);
   size(640, 360);
   ac = new AudioContext();
   light();
@@ -47,14 +56,20 @@ void setup() {
     cities[i] = new City();
   }
   
-  Data rainGaugeData = new Data("RainGauge.csv", "all");
+  Data rainGaugeData = new Data("RainGauge.csv", "max");
   rainData = rainGaugeData.getData();
   Data windDirectionData = new Data("WindDirection.csv", "avg");
   windDirection = windDirectionData.getData();
   Data windSpeedData = new Data("PeakWindGust.csv", "avg");
   windSpeed = windSpeedData.getData();
+<<<<<<< HEAD
   Data lightingData = new Data("CB02.DBSL-01-EM-01 Lighting - LIGHTING.csv", "avg");
   lighting = lightingData.getData();
+=======
+  Data lightingData = new Data("CB02.01-DB-01-EM-01 Lighting - LIGHTING.csv", "avg");
+  lighting = lightingData.getData();
+  
+>>>>>>> d125fb36566ceb775ce2f4e1e248f77dbb281e60
 }
 
 void vol (float value1) {
@@ -111,36 +126,64 @@ void draw() {
     defaultRainAmount = 4*rainAmount*rainAmount;//30 * rainAmount;
     
      for (int i=0; i<cities.length; i++) {
-      cities[i].building();
-    }
+      cities[i].building(lighting[lightingCount][1]);
+     }
 
     for (int i=10; i<cities.length; i++) {
       cities[i].display2();
     }
-
     for (int i = 0; i<defaultRainAmount; i++) {
       drops[i].show();
       drops[i].fall(speedpitch);
     }
-    
-  System.out.println("Rain data:      "+rainData[rainCount][0]+" "+rainData[rainCount][1]);
+  textSize(20);
+  text("Date: "+rainData[rainCount][0], 450, 20);  
+  //System.out.println("Rain data:      "+rainData[rainCount][0]+" "+rainData[rainCount][1]);
   //System.out.println("Direction data: "+windDirection[directionCount][0]+" "+windDirection[directionCount][1]);
   //System.out.println("Speed data:     "+windSpeed[speedCount][0]+" "+windSpeed[speedCount][1]);
+<<<<<<< HEAD
   System.out.println("Lighting data:  "+lighting[lightingCount][0]+" "+lighting[lightingCount][1]);
   rainCount++;
+=======
+  //System.out.println("Lighting data:  "+lighting[lightingCount][0]+" "+lighting[lightingCount][1]);
+>>>>>>> d125fb36566ceb775ce2f4e1e248f77dbb281e60
   if (rainData[rainCount][0]==null){
     rainCount = 0;
   }
-  directionCount++;
   if (windDirection[directionCount][0]==null){
     directionCount = 0;
   }
-  speedCount++;
   if (windSpeed[speedCount][0]==null){
     speedCount = 0;
   }
+<<<<<<< HEAD
   lightingCount++;
   if (lighting[speedCount][0]==null){
     lightingCount = 0;
   }
+=======
+  if (lighting[lightingCount][0]==null){
+    lightingCount = 0;
+  }
+  if(timer == 60)
+  {
+    rainCount++;
+    speedCount++;
+    directionCount++;
+    lightingCount++;
+    timer = 0;
+    //println(rainDropAmount);
+    for (int i = 0; i<defaultRainAmount; i++) {
+      drops[i].reset();
+    }
+  }
+  else{
+    timer++;
+    if(float(rainData[rainCount][1])<=1.0){// if data value <= 1.0 set g2 gain to 0, else set g2 gain to volume variable
+      g2.setGain(0);
+    }
+    else
+      g2.setGain(volume);
+  }
+>>>>>>> d125fb36566ceb775ce2f4e1e248f77dbb281e60
 }

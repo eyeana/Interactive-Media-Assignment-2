@@ -1,8 +1,16 @@
 
 void light() {
+  
+  sourceFile = sketchPath("") + "light_rain.wav";
+  try {
+    player_light = new SamplePlayer(ac, new Sample(sourceFile));
+  }
+  catch(Exception e) {
+    println("Exception while attempting to load sample!");
+    e.printStackTrace();
+    exit();
+  }
 
-  String light_rain = "/Users/emmalum/Downloads/Rain_new_vis/light_rain.wav";
-  SamplePlayer player_light = new SamplePlayer(ac, SampleManager.sample(light_rain));
   player_light.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
 
   Panner p = new Panner(ac, 0); 
@@ -17,11 +25,17 @@ void light() {
 }
 
 void heavy() {
-
-  String heavy_rain = "/Users/emmalum/Downloads/Rain_new_vis/rain.wav";
-  SamplePlayer player_heavy = new SamplePlayer(ac, SampleManager.sample(heavy_rain));
+  
+  sourceFile2 = sketchPath("") + "rain.wav";
+  try {
+    player_heavy = new SamplePlayer(ac, new Sample(sourceFile));
+  }
+  catch(Exception e) {
+    println("Exception while attempting to load sample!");
+    e.printStackTrace();
+    exit();
+  }
   player_heavy.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
-
   Panner p = new Panner(ac, 0); 
   gl2 = new Glide(ac, 1, 10);
   player_heavy.setRate(gl2);
