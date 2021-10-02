@@ -5,12 +5,14 @@ import controlP5.*;
 
 //Changeable Parameters
 int rainMultiplier = 4; //amount of visualised raindrops 
-int startingDay = 8;//date visualisation starts on ie. 0 = 1/01/20
+int startingDay = 0;//date visualisation starts on ie. 0 = 1/01/20 (valid numbers 0-364)
 float maxVolume = 2.0; //controls max volume 
-float maxSpeed = 2.0; //controls max rainfall speed 
+float maxSpeed = 2.0; //controls max visualisation speed
+int cityNumber = 30; //controls number of city buildings
+
+//DO WE WANT TO MAKE SPEED REVERSABLE
 
 Table table;
-
 String sourceFile;
 SamplePlayer player_light;
 String sourceFile2; 
@@ -19,7 +21,6 @@ SamplePlayer player_heavy;
 AudioContext ac;
 ControlP5 jControl;
 
-int dataRow = 0;
 float rainDropAmount;
 int rainAmount;
 int defaultRainAmount;
@@ -28,10 +29,8 @@ float volume;
 float speedpitch;
 
 int timer = 0;
-
-int cityNumber = 30;
 City[] cities = new City[cityNumber];
-Drop[] drops = new Drop[2000];
+Drop[] drops = new Drop[rainMultiplier*10*10];
 
 String[][] rainData;
 String[][] windDirection;
@@ -39,7 +38,7 @@ String[][] windSpeed;
 String[][] lighting;
 
 int rainCount = startingDay;
-int directionCount =startingDay;
+int directionCount = startingDay;
 int speedCount = startingDay;
 int lightingCount = startingDay;
 
@@ -135,19 +134,11 @@ void draw() {
   textSize(20);
   text("Date: "+rainData[rainCount][0], 450, 20);//Display current date from the data  
 
-  if (rainData[rainCount][0]==null) {
-    rainCount = 0;
+  float maxTime = 60/speedpitch*2;
+  if (maxTime > 120.0){
+    maxTime = 120;
   }
-  if (windDirection[directionCount][0]==null) {
-    directionCount = 0;
-  }
-  if (windSpeed[speedCount][0]==null) {
-    speedCount = 0;
-  }
-  if (lighting[lightingCount][0]==null) {
-    lightingCount = 0;
-  }
-  if (timer == 60)
+  if (timer >= maxTime)
   {
     rainCount++;
     speedCount++;
@@ -171,5 +162,17 @@ void draw() {
     } else
       g_heavy.setGain(volume*(1+(rainAmount/10)));
     ac.start();
+  }
+  if (rainData[rainCount][0]==null) {
+    rainCount = 0;
+  }
+  if (windDirection[directionCount][0]==null) {
+    directionCount = 0;
+  }
+  if (windSpeed[speedCount][0]==null) {
+    speedCount = 0;
+  }
+  if (lighting[lightingCount][0]==null) {
+    lightingCount = 0;
   }
 }
