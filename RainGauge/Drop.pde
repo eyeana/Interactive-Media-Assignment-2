@@ -30,11 +30,22 @@ class Drop {
   }
 
 
-  void show(float windSpeed) {
+  void show(float windSpeed, float direction) {
+    
+    int directionMultiplier = 0;
+    if (direction >= 225 && direction < 315){//wind comming from left
+      directionMultiplier = -1;
+    }else if (direction >= 45 && direction < 135){//wind comming from right
+      directionMultiplier = 1;
+    }else{//wind comming from front and back
+      directionMultiplier = 0;
+    }
+    
+    
     fill(128, 217, 255);
     noStroke();
     pushMatrix();
-    rotate(radians(windSpeed));
+    rotate(radians(directionMultiplier*windSpeed));
 
     for (int i = 2; i < r; i++ ) {
       ellipse(x, y + i*4, i*2, i*3);

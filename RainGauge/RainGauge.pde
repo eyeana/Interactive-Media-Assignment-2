@@ -13,6 +13,7 @@ int cityNumber = 30; //controls number of city buildings
 //DO WE WANT TO MAKE SPEED REVERSABLE
 
 Table table;
+
 String sourceFile;
 SamplePlayer player_light;
 String sourceFile2; 
@@ -127,7 +128,7 @@ void draw() {
     cities[i].display2();
   }
   for (int i = 0; i<defaultRainAmount; i++) {
-    drops[i].show(parseInt(windSpeed[speedCount][1]));
+    drops[i].show(parseInt(windSpeed[speedCount][1]),parseInt(windDirection[directionCount][1]));
     drops[i].fall(speedpitch);
   }
 
