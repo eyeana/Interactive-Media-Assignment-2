@@ -6,11 +6,9 @@ class City {
   float v1, v2, v3, v4;
   float spacing, spacing2;
   float lightingData;
-<<<<<<< HEAD
   float opacity;
-=======
   color light; 
->>>>>>> 130b4c4bbcb67d19187f55e0dc023cc95b0d444b
+
 
   City() {  
     x = random(-50, width);
@@ -26,7 +24,7 @@ class City {
     size3 = random(75, 125);
     size4 = height;
     opacity = 255;
-    light = color(245, 156, 88); 
+    light = color(255, 227, 84); 
   }
 
 
@@ -48,6 +46,12 @@ class City {
 
     stroke(69, 76, 150);
     strokeWeight(2);
+    
+    fill(35, 34, 89);
+    for (float i = y; i < height; i+= spacing) {
+      rect(x+5, i+10, size1/6, size1/6);
+      rect(x+spacing, i+5, size1/6, size1/6);
+    }
     
     float endOpacity = 0.0;
     

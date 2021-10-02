@@ -3,14 +3,18 @@ import beads.*;
 import java.util.Arrays; 
 import controlP5.*;
 
+//Changeable Parameters
+int rainMultiplier = 4; //amount of visualised raindrops 
+int startingDay = 8;//date visualisation starts on ie. 0 = 1/01/20
+float maxVolume = 2.0; //controls max volume 
+float maxSpeed = 2.0; //controls max rainfall speed 
+
 Table table;
 
 String sourceFile;
 SamplePlayer player_light;
 String sourceFile2; 
 SamplePlayer player_heavy;
-String sourceFile3;
-SamplePlayer player_rainDropSound;
 
 AudioContext ac;
 ControlP5 jControl;
@@ -18,19 +22,11 @@ ControlP5 jControl;
 int dataRow = 0;
 float rainDropAmount;
 int rainAmount;
-int defaultRainAmount = 10;
+int defaultRainAmount;
 
 float volume;
 float speedpitch;
-<<<<<<< HEAD
-Glide gl1;
-Glide gl2;
-Gain g;
-Gain g2;
-=======
 
-//int i = 0;
->>>>>>> 130b4c4bbcb67d19187f55e0dc023cc95b0d444b
 int timer = 0;
 
 int cityNumber = 30;
@@ -41,7 +37,7 @@ String[][] rainData;
 String[][] windDirection;
 String[][] windSpeed;
 String[][] lighting;
-int startingDay = 6;
+
 int rainCount = startingDay;
 int directionCount =startingDay;
 int speedCount = startingDay;
@@ -51,7 +47,7 @@ void setup() {
   frameRate(60);
   size(640, 360);
   ac = new AudioContext();
-  rainDropSound();
+
   light();
   heavy();
   slider();
@@ -71,11 +67,9 @@ void setup() {
   windSpeed = windSpeedData.getData();
   Data lightingData = new Data("CB02.01-DB-01-EM-01 Lighting - LIGHTING.csv", "avg");
   lighting = lightingData.getData();
-  
 }
 
 void vol (float value1) {
-
   volume = value1;
 }
 
@@ -84,12 +78,11 @@ void speed (float value2) {
 }
 
 void slider() {
-  volume = 2; 
-  //volume_heavy = 2;
-  speedpitch = 1;
+  volume = maxVolume; 
+  speedpitch = maxSpeed;
   jControl = new ControlP5(this);
-  jControl.addSlider("vol", 0, 2, 100, 10, 10, 200, 30); 
-  jControl.addSlider("speed", 0, 3, 100, 10, 50, 200, 30);
+  jControl.addSlider("vol", 0, maxVolume, 100, 10, 10, 200, 30); 
+  jControl.addSlider("speed", 0.05, maxSpeed, 100, 10, 50, 200, 30);
 }
 
 void draw() {
@@ -98,12 +91,9 @@ void draw() {
 
   fill(250, 236, 200, 220);
   ellipse(110, 45, 140, 140);//SUN 
-  
- // g_light.setGain(volume);
- 
-  
-  gainValLight.setValue(speedpitch);//gl_light.setValue(speedpitch);
-  gainValHeavy.setValue(speedpitch);//gl_heavy.setValue(speedpitch);
+
+  gainValLight.setValue(speedpitch);//set glide
+  gainValHeavy.setValue(speedpitch);//
 
   rainDropAmount = Float.parseFloat(rainData[rainCount][1]);
 
@@ -129,52 +119,20 @@ void draw() {
     rainAmount = 10;
   }
 
-<<<<<<< HEAD
-    defaultRainAmount = 4*rainAmount*rainAmount;//30 * rainAmount;
-    
-     for (int i=0; i<cities.length; i++) {
-      cities[i].building(lighting[lightingCount][1], timer);
-     }
-    for (int i=10; i<cities.length; i++) {
-      cities[i].display2();
-    }
-    for (int i = 0; i<defaultRainAmount; i++) {
-      drops[i].show();
-      drops[i].fall(speedpitch);
-    }
-    
-=======
-  defaultRainAmount = 4*rainAmount*rainAmount;//30 * rainAmount;
+
+  defaultRainAmount = rainMultiplier*rainAmount*rainAmount;//30 * rainAmount;
 
   for (int i=0; i<cities.length; i++) {
-    cities[i].building(lighting[lightingCount][1]);
+    cities[i].building(lighting[lightingCount][1], timer);
   }
-
   for (int i=10; i<cities.length; i++) {
     cities[i].display2();
   }
-
-
-
   for (int i = 0; i<defaultRainAmount; i++) {
-    drops[i].show();
+    drops[i].show(parseInt(windSpeed[speedCount][1]));
     drops[i].fall(speedpitch);
-
-
-    if (drops[i].y <= height-50) {
-
-      player_rainDropSound.setToLoopStart();
-      //player_rainDropSound.setLoopCrossFade(100);
-      //player_rainDropSound.reTrigger(); 
-      gainValDrop.setValue(speedpitch); 
-      g_drop.setGain(volume);
-      player_rainDropSound.start();
-      //ac.start();
-    }
-    ac.reset();
   }
 
->>>>>>> 130b4c4bbcb67d19187f55e0dc023cc95b0d444b
   textSize(20);
   text("Date: "+rainData[rainCount][0], 450, 20);  
   //System.out.println("Rain data:      "+rainData[rainCount][0]+" "+rainData[rainCount][1]);
@@ -200,24 +158,23 @@ void draw() {
     directionCount++;
     lightingCount++;
     timer = 0;
-<<<<<<< HEAD
-=======
     println(rainDropAmount);
->>>>>>> 130b4c4bbcb67d19187f55e0dc023cc95b0d444b
+
     for (int i = 0; i<defaultRainAmount; i++) {
       drops[i].reset();
     }
   } else {
     timer++;
-    if (float(rainData[rainCount][1])<=0.1) {
+
+    if (float(rainData[rainCount][1])<=-0.1) {
       g_light.setGain(0);
     } else
-      g_light.setGain(volume);
+      g_light.setGain(volume*(1+(rainAmount/10)));
 
-    if (float(rainData[rainCount][1])<=0.5) {// if data value <= 1.0 set g2 gain to 0, else set g2 gain to volume variable
+    if (float(rainData[rainCount][1])<=0.9) {// if data value <= 1.0 set g2 gain to 0, else set g2 gain to volume variable
       g_heavy.setGain(0);
     } else
-      g_heavy.setGain(volume);
+      g_heavy.setGain(volume*(1+(rainAmount/10)));
     ac.start();
   }
 }
