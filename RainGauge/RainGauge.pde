@@ -120,8 +120,8 @@ void draw() {
     defaultRainAmount = 4*rainAmount*rainAmount;//30 * rainAmount;
     
      for (int i=0; i<cities.length; i++) {
-      cities[i].building();
-    }
+      cities[i].building(lighting[lightingCount][1]);
+     }
 
     for (int i=10; i<cities.length; i++) {
       cities[i].display2();

@@ -5,6 +5,7 @@ class City {
   float size3, size4;
   float v1, v2, v3, v4;
   float spacing, spacing2;
+  float lightingData;
 
   City() {  
     x = random(-50, width);
@@ -22,7 +23,9 @@ class City {
   }
 
 
-  void building() {
+  void building(String lighting) {
+    
+    lightingData = float(lighting);
 
     noStroke();
     fill(61, 36, 130);
@@ -38,7 +41,19 @@ class City {
 
     stroke(69, 76, 150);
     strokeWeight(2);
-    fill(245, 156, 88);
+    //fill(245, 156, 88, 255);
+    
+    if((lightingData>=0) && (lightingData<0.5)){
+      fill(245, 156, 88, 63);
+    } else if ((lightingData>=0.51) && (lightingData<1.0)) {
+      fill(245, 156, 88, 127);
+    } else if ((lightingData>=1.01) && (lightingData<1.5)) {
+      fill(245, 156, 88, 191);
+    } else if ((lightingData>=1.51) && (lightingData<2.0)) {
+      fill(245, 156, 88, 210);
+    } else if ((lightingData>=2.01)) {
+      fill(245, 156, 88, 255);
+    }
 
     //for (float i = y; i < height; i+= spacing) {
 
