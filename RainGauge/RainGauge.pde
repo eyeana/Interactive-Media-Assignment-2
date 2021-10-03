@@ -147,7 +147,7 @@ void draw() {
     lightingCount++;
     timer = 0;
     println(rainDropAmount);
-    for (int i = 0; i<defaultRainAmount; i++) {
+    for (int i = 0; i<drops.length; i++) {
       drops[i].reset();
     }
   } else {

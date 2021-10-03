@@ -6,12 +6,15 @@ class Drop {
   float r, x, y;
   float a, b; 
   int angle; 
+  float maxWidth, maxHeight;
 
 
   Drop() { 
     x = random(width);
     r = 3.5;
     y  = random(-200, 0);
+    maxWidth = 2;
+    maxHeight = 4;
   }
 
   void fall(float speedpitch) {
@@ -31,39 +34,62 @@ class Drop {
 
 
   void show(float windSpeed, float direction) {
-    
+
     int directionMultiplier = 0;
-    if (direction >= 225 && direction < 315){//wind comming from left
+    if (direction >= 225 && direction < 315) {//wind comming from left
       directionMultiplier = -1;
-    }else if (direction >= 45 && direction < 135){//wind comming from right
+    } else if (direction >= 45 && direction < 135) {//wind comming from right
       directionMultiplier = 1;
-    }else{//wind comming from front and back
+    } else {//wind comming from front and back
       directionMultiplier = 0;
     }
-    
+
     int sizeMultiplier = 0;
-    if (direction >= 315 && direction < 45){//wind comming from front
+    if (direction >= 315 && direction < 45) {//wind comming from front
       sizeMultiplier = -1;
-    }else if (direction >= 135 && direction < 225){//wind comming from behind
+    } else if (direction >= 135 && direction < 225) {//wind comming from behind
       sizeMultiplier = 1;
-    }else{//wind comming from left and right
+    } else {//wind comming from left and right
       sizeMultiplier = 0;
     }
-    
-    
+
+
+    if (sizeMultiplier ==0) {
+      maxWidth = 2;
+      maxHeight = 4;
+    } else if (sizeMultiplier == -1) {
+      maxWidth = maxWidth/(1+windSpeed/100);
+      maxHeight = maxHeight/(1+windSpeed/100);
+    } else if (sizeMultiplier == 1) {
+      maxWidth = (maxWidth + windSpeed/10);
+      maxHeight = (maxHeight + windSpeed/10);
+    }
+
+
     fill(128, 217, 255);
     noStroke();
     pushMatrix();
     rotate(radians(directionMultiplier*windSpeed));
 
-    for (int i = 2; i < r; i++ ) {
-      ellipse(x, y + i*4, i*2, i*3);
+
+    for (int i = 0; i < r; i++ ) {
+      if (sizeMultiplier == 0) {
+        ellipse(x, y+i*maxHeight, (i*maxWidth), (i*maxHeight));
+      } else if (sizeMultiplier == 1) {
+        ellipse(x, y+i*maxHeight/7.5, (i*maxWidth)/7.5, (i*maxHeight)/7.5);
+      }else if (sizeMultiplier == -1) {
+        ellipse(x, y+i*maxHeight*-1, (i*maxWidth), (i*maxHeight));
+      }
+      println(sizeMultiplier); 
+  
     }
     popMatrix();
   }
-  
-  
+
+
   void reset() {
+    maxWidth =2;
+    maxHeight = 4;
     y  = random(-200, 0);
   }
 }
