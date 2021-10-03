@@ -41,6 +41,15 @@ class Drop {
       directionMultiplier = 0;
     }
     
+    int sizeMultiplier = 0;
+    if (direction >= 315 && direction < 45){//wind comming from front
+      sizeMultiplier = -1;
+    }else if (direction >= 135 && direction < 225){//wind comming from behind
+      sizeMultiplier = 1;
+    }else{//wind comming from left and right
+      sizeMultiplier = 0;
+    }
+    
     
     fill(128, 217, 255);
     noStroke();
@@ -52,6 +61,8 @@ class Drop {
     }
     popMatrix();
   }
+  
+  
   void reset() {
     y  = random(-200, 0);
   }
